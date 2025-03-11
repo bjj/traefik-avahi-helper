@@ -13,7 +13,7 @@ This will create a CNAME or A record for `myservice.local` depending on your con
 
 ## Installing
 
-`docker pull hardillb/traefik-avahi-helper`
+`docker pull githubbjj/traefik-avahi-helper`
 
 Currently there are AMD64 and ARM64 based builds.
 
@@ -48,4 +48,4 @@ This is a temp workaround until I can work out a suitable policy to apply.
 
 ## Acknowledgement
 
-This uses and borrows heavily from [mdns-publisher](https://github.com/alticelabs/mdns-publisher)
+This uses and borrows heavily from [mdns-publisher](https://github.com/carlosefr/mdns-publisher) but is based on [a fork with A record support](https://github.com/bjj/mdns-publisher)

@@ -1,5 +1,5 @@
 FROM python:3.10.10-alpine3.17 as base
-LABEL maintainer="Ben Hardill hardillb@gmail.com"
+LABEL maintainer="Ben Jackson ben@ben.com"
 RUN apk add --no-cache --update  \
   dbus-libs \
   'nodejs<19'
