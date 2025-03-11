@@ -69,6 +69,8 @@ def main():
     log.setLevel(logging.INFO)
     publisher = None
 
+    dns_type = os.getenv('TRAEFIK_AVAHI_HELPER_DNS_TYPE') or 'CNAME'
+
     while True:
         if not publisher or not publisher.available():
             publisher = AvahiPublisher(30)
@@ -78,14 +80,14 @@ def main():
             signal.signal(signal.SIGQUIT, functools.partial(handle_signals, publisher))
 
             for cname in cnames:
-                status = publisher.publish_cname(cname, True)
+                status = publisher.publish(cname, force=True, dns_type=dns_type)
                 if not status:
                     log.error("failed to publish '%s'", cname)
                     continue
             if publisher.count() == len(cnames):
-                log.info("All CNAMEs published")
+                log.info(f"All {dns_type} records published")
             else:
-                log.warning("%d of %d published", publisher.count(), len(cnames))
+                log.warning("%d of %d {dns_type} records published", publisher.count(), len(cnames))
 
         sleep(1)
 

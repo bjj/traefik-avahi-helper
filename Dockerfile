@@ -20,7 +20,8 @@ RUN apk add --no-cache --update \
     'npm<10' && \
   pip install --upgrade --no-cache-dir pip
 
-RUN pip install --user --no-cache-dir mdns-publisher
+COPY mdns-publisher /usr/src/mdns-publisher
+RUN cd /usr/src/mdns-publisher && pip install .
 
 COPY package.json package-lock.json ./
 RUN npm ci --omit=dev
@@ -35,7 +36,7 @@ COPY cname.py index.js ./
 # npm packages
 COPY --from=compile-image /usr/src/app/node_modules node_modules
 # pip packages
-COPY --from=compile-image /root/.local /root/.local
+COPY --from=compile-image /usr/local /usr/local
 ENV PATH=/root/.local/bin:$PATH
 
 CMD ["node", "index.js"]
